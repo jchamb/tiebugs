@@ -13,8 +13,8 @@ type SearchParams = z.infer<typeof validateSearch>;
 export const Route = createFileRoute("/search")({
 	component: SearchPage,
 	loaderDeps: ({ search }) => ({ q: search.q }),
-	loader: async ({ search }) => {
-		const query = typeof search.q === "string" ? search.q : "";
+	loader: async ({ deps }) => {
+		const query = typeof deps.q === "string" ? deps.q : "";
 		const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
 		if (!response.ok) {
 			throw new Response("Failed to load search results", {

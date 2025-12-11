@@ -9,29 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoStorybookRouteImport } from './routes/demo/storybook'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
-import { Route as DemoNeonRouteImport } from './routes/demo/neon'
-import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
 import { Route as DemoDbChatApiRouteImport } from './routes/demo/db-chat-api'
 import { Route as DemoDbChatRouteImport } from './routes/demo/db-chat'
+import { Route as ApiHatchesRouteImport } from './routes/api/hatches'
+import { Route as ApiPatternsIndexRouteImport } from './routes/api/patterns/index'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as DemoApiTqTodosRouteImport } from './routes/demo/api.tq-todos'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as ApiPatternsIdRouteImport } from './routes/api/patterns/$id'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
 import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
@@ -54,16 +68,6 @@ const DemoStoreRoute = DemoStoreRouteImport.update({
   path: '/demo/store',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoNeonRoute = DemoNeonRouteImport.update({
-  id: '/demo/neon',
-  path: '/demo/neon',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoDrizzleRoute = DemoDrizzleRouteImport.update({
-  id: '/demo/drizzle',
-  path: '/demo/drizzle',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DemoDbChatApiRoute = DemoDbChatApiRouteImport.update({
   id: '/demo/db-chat-api',
   path: '/demo/db-chat-api',
@@ -72,6 +76,16 @@ const DemoDbChatApiRoute = DemoDbChatApiRouteImport.update({
 const DemoDbChatRoute = DemoDbChatRouteImport.update({
   id: '/demo/db-chat',
   path: '/demo/db-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHatchesRoute = ApiHatchesRouteImport.update({
+  id: '/api/hatches',
+  path: '/api/hatches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPatternsIndexRoute = ApiPatternsIndexRouteImport.update({
+  id: '/api/patterns/',
+  path: '/api/patterns/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -104,6 +118,16 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPatternsIdRoute = ApiPatternsIdRouteImport.update({
+  id: '/api/patterns/$id',
+  path: '/api/patterns/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -127,20 +151,24 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
+  '/api/hatches': typeof ApiHatchesRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/neon': typeof DemoNeonRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/login': typeof LoginIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/patterns/$id': typeof ApiPatternsIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/api/patterns': typeof ApiPatternsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -148,20 +176,24 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
+  '/api/hatches': typeof ApiHatchesRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/neon': typeof DemoNeonRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/login': typeof LoginIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/patterns/$id': typeof ApiPatternsIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/api/patterns': typeof ApiPatternsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -170,20 +202,24 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
+  '/api/hatches': typeof ApiHatchesRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/neon': typeof DemoNeonRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/login/': typeof LoginIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/patterns/$id': typeof ApiPatternsIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/api/patterns/': typeof ApiPatternsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -193,20 +229,24 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/search'
+    | '/api/hatches'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
-    | '/demo/drizzle'
-    | '/demo/neon'
     | '/demo/store'
     | '/demo/storybook'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/login'
+    | '/api/auth/$'
+    | '/api/patterns/$id'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/api/patterns'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -214,20 +254,24 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/search'
+    | '/api/hatches'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
-    | '/demo/drizzle'
-    | '/demo/neon'
     | '/demo/store'
     | '/demo/storybook'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/login'
+    | '/api/auth/$'
+    | '/api/patterns/$id'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/api/patterns'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -235,20 +279,24 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/search'
+    | '/api/hatches'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
-    | '/demo/drizzle'
-    | '/demo/neon'
     | '/demo/store'
     | '/demo/storybook'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/login/'
+    | '/api/auth/$'
+    | '/api/patterns/$id'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/api/patterns/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -257,20 +305,24 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SearchRoute: typeof SearchRoute
+  ApiHatchesRoute: typeof ApiHatchesRoute
   DemoDbChatRoute: typeof DemoDbChatRoute
   DemoDbChatApiRoute: typeof DemoDbChatApiRoute
-  DemoDrizzleRoute: typeof DemoDrizzleRoute
-  DemoNeonRoute: typeof DemoNeonRoute
   DemoStoreRoute: typeof DemoStoreRoute
   DemoStorybookRoute: typeof DemoStorybookRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  LoginIndexRoute: typeof LoginIndexRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiPatternsIdRoute: typeof ApiPatternsIdRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoApiTqTodosRoute: typeof DemoApiTqTodosRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
+  ApiPatternsIndexRoute: typeof ApiPatternsIndexRoute
   DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
   DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute
   DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute
@@ -279,11 +331,25 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/tanstack-query': {
@@ -314,20 +380,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoStoreRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/neon': {
-      id: '/demo/neon'
-      path: '/demo/neon'
-      fullPath: '/demo/neon'
-      preLoaderRoute: typeof DemoNeonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/drizzle': {
-      id: '/demo/drizzle'
-      path: '/demo/drizzle'
-      fullPath: '/demo/drizzle'
-      preLoaderRoute: typeof DemoDrizzleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/demo/db-chat-api': {
       id: '/demo/db-chat-api'
       path: '/demo/db-chat-api'
@@ -340,6 +392,20 @@ declare module '@tanstack/react-router' {
       path: '/demo/db-chat'
       fullPath: '/demo/db-chat'
       preLoaderRoute: typeof DemoDbChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/hatches': {
+      id: '/api/hatches'
+      path: '/api/hatches'
+      fullPath: '/api/hatches'
+      preLoaderRoute: typeof ApiHatchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/patterns/': {
+      id: '/api/patterns/'
+      path: '/api/patterns'
+      fullPath: '/api/patterns'
+      preLoaderRoute: typeof ApiPatternsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -384,6 +450,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/patterns/$id': {
+      id: '/api/patterns/$id'
+      path: '/api/patterns/$id'
+      fullPath: '/api/patterns/$id'
+      preLoaderRoute: typeof ApiPatternsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
       path: '/demo/start/ssr'
@@ -417,20 +497,24 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SearchRoute: SearchRoute,
+  ApiHatchesRoute: ApiHatchesRoute,
   DemoDbChatRoute: DemoDbChatRoute,
   DemoDbChatApiRoute: DemoDbChatApiRoute,
-  DemoDrizzleRoute: DemoDrizzleRoute,
-  DemoNeonRoute: DemoNeonRoute,
   DemoStoreRoute: DemoStoreRoute,
   DemoStorybookRoute: DemoStorybookRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiPatternsIdRoute: ApiPatternsIdRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoApiTqTodosRoute: DemoApiTqTodosRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
+  ApiPatternsIndexRoute: ApiPatternsIndexRoute,
   DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,
   DemoStartSsrFullSsrRoute: DemoStartSsrFullSsrRoute,
   DemoStartSsrSpaModeRoute: DemoStartSsrSpaModeRoute,
