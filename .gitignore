@@ -1,5 +1,6 @@
 node_modules
 src/routes/demo
+src/routes/-(demo)
 
 .DS_Store
 dist

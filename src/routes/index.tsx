@@ -4,18 +4,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn, signOut, useSession } from "@/lib/auth/client";
-import { getRecipeCount } from "@/lib/recipes.server";
 
 export const Route = createFileRoute("/")({
 	component: HomePage,
-	loader: async () => {
-		const count = await getRecipeCount();
-		return { recipeCount: count };
-	},
 });
 
 function HomePage() {
-	const { recipeCount } = Route.useLoaderData();
 	const [searchQuery, setSearchQuery] = useState("");
 	const { data: session, isPending } = useSession();
 
@@ -148,10 +142,10 @@ function HomePage() {
 					<div className="text-gray-400">
 						<p className="text-lg">
 							Search{" "}
-							<span className="text-amber-400 font-bold text-2xl">
+							{/* <span className="text-amber-400 font-bold text-2xl">
 								{recipeCount.toLocaleString()}
 							</span>{" "}
-							{recipeCount === 1 ? "fly pattern" : "fly patterns"}
+							{recipeCount === 1 ? "fly pattern" : "fly patterns"} */}
 						</p>
 						<p className="text-sm mt-2 text-gray-500">
 							From classic dry flies to modern streamers
