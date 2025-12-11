@@ -1,0 +1,30 @@
+{
+  "projectName": "tiebugs",
+  "mode": "file-router",
+  "typescript": true,
+  "tailwind": true,
+  "packageManager": "pnpm",
+  "addOnOptions": {
+    "drizzle": {
+      "database": "postgresql"
+    }
+  },
+  "git": true,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "biome",
+    "cloudflare",
+    "start",
+    "neon",
+    "drizzle",
+    "db",
+    "table",
+    "tanstack-query",
+    "store",
+    "storybook",
+    "shadcn",
+    "form",
+    "compiler"
+  ]
+}
