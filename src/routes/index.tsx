@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn, signOut, useSession } from "@/lib/auth/client";
 
 export const Route = createFileRoute("/")({
 	component: HomePage,
@@ -11,7 +11,6 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
 	const [searchQuery, setSearchQuery] = useState("");
-	const { data: session, isPending } = useSession();
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -21,80 +20,9 @@ function HomePage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-			{/* Auth header */}
-			<div className="absolute top-4 right-4 flex items-center gap-4">
-				{isPending ? (
-					<div className="text-gray-400 text-sm">Loading...</div>
-				) : session ? (
-					<div className="flex items-center gap-3">
-						{session.user.image && (
-							<img
-								src={session.user.image}
-								alt={session.user.name}
-								className="w-8 h-8 rounded-full"
-							/>
-						)}
-						<span className="text-gray-300 text-sm">{session.user.name}</span>
-						<Button
-							variant="outline"
-							size="sm"
-							onClick={() => signOut()}
-							className="text-gray-300 border-gray-600 hover:bg-gray-700"
-						>
-							Sign Out
-						</Button>
-					</div>
-				) : (
-					<div className="flex items-center gap-2">
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => signIn.social({ provider: "google" })}
-							className="text-gray-300 hover:bg-gray-700"
-						>
-							Google
-						</Button>
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => signIn.social({ provider: "facebook" })}
-							className="text-gray-300 hover:bg-gray-700"
-						>
-							Facebook
-						</Button>
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => signIn.social({ provider: "twitter" })}
-							className="text-gray-300 hover:bg-gray-700"
-						>
-							X
-						</Button>
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => signIn.social({ provider: "tiktok" })}
-							className="text-gray-300 hover:bg-gray-700"
-						>
-							TikTok
-						</Button>
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => signIn.social({ provider: "github" })}
-							className="text-gray-300 hover:bg-gray-700"
-						>
-							GitHub
-						</Button>
-					</div>
-				)}
-			</div>
-
+		<>
 			{/* Hero section */}
 			<section className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center overflow-hidden">
-				<div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10"></div>
-
 				<div className="relative max-w-4xl mx-auto">
 					{/* Logo / Brand */}
 					<div className="mb-8">
@@ -181,6 +109,6 @@ function HomePage() {
 					<p>Add to the collection by signing in</p>
 				</div>
 			</section>
-		</div>
+		</>
 	);
 }

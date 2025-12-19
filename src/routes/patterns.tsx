@@ -10,12 +10,14 @@ const validateSearch = z.object({
 
 type SearchParams = z.infer<typeof validateSearch>;
 
-export const Route = createFileRoute("/search")({
+export const Route = createFileRoute("/patterns")({
 	component: SearchPage,
 	loaderDeps: ({ search }) => ({ q: search.q }),
 	loader: async ({ deps }) => {
 		const query = typeof deps.q === "string" ? deps.q : "";
-		const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+		const response = await fetch(
+			`/api/patterns?q=${encodeURIComponent(query)}`,
+		);
 		if (!response.ok) {
 			throw new Response("Failed to load search results", {
 				status: response.status,
