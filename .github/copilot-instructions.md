@@ -42,6 +42,100 @@ export const Route = createFileRoute('/api/patterns')({
 });
 ```
 
+### Data Loading
+
+Loader usage should always use Tanstack Query `ensureQueryData` and `useSuspenseQuery` for SSR compatibility:
+
+```tsxtsx
+// Loader with TanStack Query
+export const Route = createFileRoute('/patterns')({
+  loader: async ({ queryClient }) => {
+    await queryClient.ensureQueryData({
+      queryKey: ['patterns'],
+      queryFn: () => fetchPatterns(),
+    });
+  },
+  component: PatternsPage,
+});
+```
+
+### Forms and Mutations
+
+Use `@tanstack/react-form` for forms and `@tanstack/react-query` for mutations:
+
+```tsx
+// Example form with mutation
+const mutation = useMutation({
+  mutationFn: (data: NewPattern) => createPattern(data),
+});
+const form = useForm({
+  onSubmit: async values => {
+    await mutation.mutateAsync(values);
+    navigate('/patterns');
+  },
+});
+```
+
+### Data Validation
+
+Use `zod` for schema validation:
+
+```ts
+// Zod schema example
+import { z } from 'zod';
+const patternSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  description: z.string().optional(),
+  materials: z.array(z.string()).min(1, 'At least one material is required'),
+});
+```
+
+Zod should be used to validate API request bodies and query parameters via inputValidator middleware:
+
+```tsx
+import { inputValidator } from '@tanstack/react-router/zod';
+// Example API route with input validation
+export const Route = createFileRoute('/api/patterns')({
+  server: {
+    handlers: ({ createHandlers }) =>
+      createHandlers({
+        POST: {
+          middleware: [
+            authApiMiddleware,
+            inputValidator({
+              body: patternSchema,
+            }),
+          ],
+          handler: async ({ input }) => {
+            const newPattern = input.body;
+            // ...
+          },
+        },
+      }),
+  },
+});
+```
+
+### Search Validation
+
+Use Zod to validate search parameters:
+
+```ts
+import { createFileRoute } from '@tanstack/react-router';
+import { zodValidator } from '@tanstack/zod-adapter';
+import { z } from 'zod';
+
+const productSearchSchema = z.object({
+  hook: z.number().min(0).max(32).optional(),
+  s: z.string().default('').optional(),
+});
+
+export const Route = createFileRoute('/patterns/')({
+  validateSearch: zodValidator(productSearchSchema),
+  // ... other route properties
+});
+```
+
 ### Server Functions
 
 Use `createServerFn` for server-side logic callable from client or loaders:
